@@ -1,21 +1,19 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
-# Set page config
+# Set up the page
 st.set_page_config(page_title="Neon Login", layout="centered", page_icon="🔐")
 
-# Custom CSS for neon look
+# Custom CSS & tsParticles Setup
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-    body {
-        background: radial-gradient(circle at center, #0d0d1a, #05010a);
-    }
-
-    .stApp {
-        background: radial-gradient(circle at center, #0d0d1a, #05010a);
+    html, body, .stApp {
+        background: #05010a;
         font-family: 'Orbitron', sans-serif;
         color: #00f7ff;
+        overflow: hidden;
     }
 
     .login-box {
@@ -26,6 +24,8 @@ st.markdown("""
         text-align: center;
         width: 400px;
         margin: 100px auto;
+        position: relative;
+        z-index: 2;
     }
 
     input, .stTextInput > div > div > input {
@@ -76,10 +76,50 @@ st.markdown("""
         font-size: 28px;
         margin-bottom: 30px;
     }
+
+    canvas {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Login layout
+# Load tsParticles animation
+components.html("""
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+    <div id="tsparticles"></div>
+    <script>
+    tsParticles.load("tsparticles", {
+        background: { color: "#05010a" },
+        fullScreen: { enable: true },
+        particles: {
+            number: { value: 50 },
+            size: { value: 3 },
+            color: { value: "#00f7ff" },
+            shape: { type: "circle" },
+            opacity: { value: 0.8 },
+            move: {
+                enable: true,
+                speed: 1,
+                direction: "none",
+                outModes: "bounce"
+            }
+        },
+        interactivity: {
+            events: {
+                onHover: { enable: true, mode: "repulse" }
+            },
+            modes: {
+                repulse: { distance: 80 }
+            }
+        }
+    });
+    </script>
+""", height=0)
+
+# Login Form UI
 st.markdown('<div class="login-box">', unsafe_allow_html=True)
 st.markdown('<h2>Welcome Back</h2>', unsafe_allow_html=True)
 
@@ -88,7 +128,7 @@ password = st.text_input("Password", type="password", placeholder="Enter your pa
 
 remember = st.checkbox("Remember me")
 
-login_clicked = st.button("Login", type="primary")
+login_clicked = st.button("Login")
 
 if login_clicked:
     if username and password:
