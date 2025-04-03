@@ -1,19 +1,65 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# Set up the page
-st.set_page_config(page_title="Neon Login", layout="centered", page_icon="🔐")
+# Set page config
+st.set_page_config(page_title="Neon Login", layout="centered", page_icon="✨")
 
-# Custom CSS & tsParticles Setup
+# Inject particles.js animation
+components.html("""
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <script>
+    tsParticles.load("tsparticles", {
+      background: { color: { value: "#05010a" } },
+      fpsLimit: 60,
+      interactivity: {
+        events: { onHover: { enable: true, mode: "repulse" }, resize: true },
+        modes: { repulse: { distance: 100, duration: 0.4 } }
+      },
+      particles: {
+        color: { value: ["#00f0ff", "#d946ef", "#ffcc00", "#00ff99"] },
+        links: { enable: true, color: "#ffffff", distance: 150, opacity: 0.2 },
+        collisions: { enable: false },
+        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, bounce: false },
+        number: { value: 60, density: { enable: true, area: 800 } },
+        opacity: { value: 0.5 },
+        shape: { type: "circle" },
+        size: { value: { min: 2, max: 4 } }
+      },
+      detectRetina: true
+    });
+  </script>
+</body>
+</html>
+""", height=0)
+
+# Custom Neon CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-    html, body, .stApp {
-        background: #05010a;
+    .stApp {
+        background-color: transparent;
         font-family: 'Orbitron', sans-serif;
         color: #00f7ff;
-        overflow: hidden;
     }
 
     .login-box {
@@ -23,9 +69,7 @@ st.markdown("""
         box-shadow: 0 0 20px #00e6ff;
         text-align: center;
         width: 400px;
-        margin: 100px auto;
-        position: relative;
-        z-index: 2;
+        margin: 120px auto;
     }
 
     input, .stTextInput > div > div > input {
@@ -37,7 +81,7 @@ st.markdown("""
         box-shadow: 0 0 10px #00ffff !important;
     }
 
-    .login-button > button {
+    .stButton > button {
         width: 100%;
         padding: 12px;
         border: none;
@@ -46,11 +90,11 @@ st.markdown("""
         color: white;
         font-size: 16px;
         cursor: pointer;
-        transition: 0.3s;
         font-family: 'Orbitron', sans-serif;
+        margin-top: 20px;
     }
 
-    .login-button > button:hover {
+    .stButton > button:hover {
         background: linear-gradient(to right, #d946ef, #00f0ff);
     }
 
@@ -76,50 +120,10 @@ st.markdown("""
         font-size: 28px;
         margin-bottom: 30px;
     }
-
-    canvas {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
     </style>
 """, unsafe_allow_html=True)
 
-# Load tsParticles animation
-components.html("""
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
-    <div id="tsparticles"></div>
-    <script>
-    tsParticles.load("tsparticles", {
-        background: { color: "#05010a" },
-        fullScreen: { enable: true },
-        particles: {
-            number: { value: 50 },
-            size: { value: 3 },
-            color: { value: "#00f7ff" },
-            shape: { type: "circle" },
-            opacity: { value: 0.8 },
-            move: {
-                enable: true,
-                speed: 1,
-                direction: "none",
-                outModes: "bounce"
-            }
-        },
-        interactivity: {
-            events: {
-                onHover: { enable: true, mode: "repulse" }
-            },
-            modes: {
-                repulse: { distance: 80 }
-            }
-        }
-    });
-    </script>
-""", height=0)
-
-# Login Form UI
+# Login UI
 st.markdown('<div class="login-box">', unsafe_allow_html=True)
 st.markdown('<h2>Welcome Back</h2>', unsafe_allow_html=True)
 
