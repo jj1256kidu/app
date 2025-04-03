@@ -3,68 +3,50 @@ import streamlit.components.v1 as components
 
 st.set_page_config(page_title="Futuristic Login", layout="centered")
 
-# Inject tsParticles Background with Custom Styling
+# Inject Colorful Floating Particles
 components.html("""
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: #0f0c29;
-    }
-
-    #tsparticles {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
-</head>
-<body>
-  <div id="tsparticles"></div>
-  <script>
-    tsParticles.load("tsparticles", {
-      fullScreen: { enable: false },
-      background: { color: "#0f0c29" },
-      particles: {
-        number: { value: 100 },
-        color: { value: ["#00f0ff", "#ff00e0", "#ffc400"] },
-        shape: { type: ["circle", "square"] },
-        opacity: { value: 0.7 },
-        size: { value: 4 },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: "none",
-          random: false,
-          straight: false,
-          outModes: "bounce"
-        }
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+<script>
+  tsParticles.load("tsparticles", {
+    fullScreen: { enable: true, zIndex: -1 },
+    background: { color: "#0f0c29" },
+    particles: {
+      number: { value: 80 },
+      color: { value: ["#00f0ff", "#ff00e0", "#ffc400", "#00ff99"] },
+      shape: { type: ["circle", "square"] },
+      opacity: { value: 0.6 },
+      size: { value: { min: 2, max: 4 } },
+      move: {
+        enable: true,
+        speed: 1.2,
+        direction: "none",
+        random: true,
+        outModes: "bounce"
       },
-      interactivity: {
-        events: {
-          onHover: { enable: true, mode: "repulse" },
-          onClick: { enable: true, mode: "push" }
-        },
-        modes: {
-          repulse: { distance: 100 },
-          push: { quantity: 4 }
-        }
+      links: {
+        enable: true,
+        distance: 120,
+        color: "#ffffff",
+        opacity: 0.1
+      }
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" },
+        onClick: { enable: true, mode: "push" }
       },
-      detectRetina: true
-    });
-  </script>
-</body>
-</html>
+      modes: {
+        repulse: { distance: 100 },
+        push: { quantity: 4 }
+      }
+    },
+    detectRetina: true
+  });
+</script>
 """, height=0)
 
-# Custom CSS Styling (Orbitron + FontAwesome + Neon Inputs)
+# Add Custom Orbitron + FontAwesome + Neon Login Styles
 st.markdown("""
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -158,7 +140,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# HTML Login Form UI (inside Streamlit)
+# Login Form UI
 st.markdown(f"""
 <div class="login-box">
   <h2>Welcome Back</h2>
