@@ -1,113 +1,181 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Neon Login", layout="centered", page_icon="✨")
+st.set_page_config(page_title="Futuristic Login", layout="centered")
 
-# ✅ Inject fullscreen tsParticles with no layout distortion
+# Inject tsParticles Background with Custom Styling
 components.html("""
-<div id="tsparticles"></div>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
-<script>
-  tsParticles.load("tsparticles", {
-    fullScreen: { enable: true, zIndex: -1 },
-    background: { color: { value: "#05010a" } },
-    particles: {
-      number: { value: 60, density: { enable: true, area: 800 } },
-      color: { value: ["#00f0ff", "#d946ef", "#ffcc00", "#00ff99"] },
-      shape: { type: "circle" },
-      opacity: { value: 0.5 },
-      size: { value: { min: 2, max: 4 } },
-      links: { enable: true, color: "#ffffff", distance: 150, opacity: 0.2 },
-      move: { enable: true, speed: 1, direction: "none", random: true }
-    },
-    interactivity: {
-      events: { onHover: { enable: true, mode: "repulse" } },
-      modes: { repulse: { distance: 100, duration: 0.4 } }
-    },
-    detectRetina: true
-  });
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #0f0c29;
+    }
+
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <script>
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: false },
+      background: { color: "#0f0c29" },
+      particles: {
+        number: { value: 100 },
+        color: { value: ["#00f0ff", "#ff00e0", "#ffc400"] },
+        shape: { type: ["circle", "square"] },
+        opacity: { value: 0.7 },
+        size: { value: 4 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: "bounce"
+        }
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "repulse" },
+          onClick: { enable: true, mode: "push" }
+        },
+        modes: {
+          repulse: { distance: 100 },
+          push: { quantity: 4 }
+        }
+      },
+      detectRetina: true
+    });
+  </script>
+</body>
+</html>
 """, height=0)
 
-# ✅ Custom Neon CSS
+# Custom CSS Styling (Orbitron + FontAwesome + Neon Inputs)
 st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
+<style>
 .stApp {
-    background-color: transparent !important;
-    font-family: 'Orbitron', sans-serif;
-    color: #00f7ff;
+  font-family: 'Orbitron', sans-serif;
+  background-color: transparent !important;
+  color: white;
 }
 
 .login-box {
-    background-color: rgba(0, 0, 0, 0.85);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 0 20px #00e6ff;
-    text-align: center;
-    width: 400px;
-    margin: 100px auto;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 400px;
+  margin: 120px auto;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+  z-index: 1;
+  position: relative;
 }
 
-input, .stTextInput > div > div > input {
-    background-color: #111 !important;
-    color: white !important;
-    border-radius: 30px !important;
-    padding: 10px 20px !important;
-    border: none !important;
-    box-shadow: 0 0 10px #00ffff !important;
+.login-box h2 {
+  text-align: center;
+  color: #00f0ff;
+  margin-bottom: 30px;
+  font-size: 26px;
 }
 
-.stButton > button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(to right, #00f0ff, #d946ef);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-    margin-top: 20px;
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20px;
 }
 
-.stButton > button:hover {
-    background: linear-gradient(to right, #d946ef, #00f0ff);
+.input-wrapper i {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #7efcff;
+  font-size: 14px;
 }
 
-.forgot {
-    text-align: right;
-    margin-top: 10px;
-    font-size: 13px;
+.input-wrapper input {
+  width: 100%;
+  height: 45px;
+  padding: 0 15px 0 40px;
+  border: 1px solid #00f0ff;
+  background: transparent;
+  color: white;
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.3s;
 }
 
-.forgot a {
-    color: #77dfff;
-    text-decoration: none;
+.input-wrapper input:focus {
+  box-shadow: 0 0 10px #00f0ff;
 }
 
-h2 {
-    color: #00f7ff;
-    font-size: 28px;
-    margin-bottom: 30px;
+.login-button {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #00f0ff, #ff00e0);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px #00f0ff;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #a0cbe8;
+  margin-top: 10px;
+}
+
+.options a {
+  color: #a0cbe8;
+  text-decoration: underline;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ✅ Neon Login Form UI
-st.markdown('<div class="login-box">', unsafe_allow_html=True)
-st.markdown('<h2>Welcome Back</h2>', unsafe_allow_html=True)
-
-username = st.text_input("Username", placeholder="Enter your username")
-password = st.text_input("Password", type="password", placeholder="Enter your password")
-remember = st.checkbox("Remember me")
-
-if st.button("Login"):
-    if username and password:
-        st.success(f"✅ Welcome, {username}!")
-    else:
-        st.error("❌ Please enter both username and password.")
-
-st.markdown('<div class="forgot"><a href="#">Forgot password?</a></div>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+# HTML Login Form UI (inside Streamlit)
+st.markdown(f"""
+<div class="login-box">
+  <h2>Welcome Back</h2>
+  <form>
+    <div class="input-wrapper">
+      <i class="fas fa-user"></i>
+      <input type="text" placeholder="Username" name="username" required />
+    </div>
+    <div class="input-wrapper">
+      <i class="fas fa-lock"></i>
+      <input type="password" placeholder="Password" name="password" required />
+    </div>
+    <button class="login-button" type="submit">LOGIN</button>
+    <div class="options">
+      <label><input type="checkbox" checked /> Remember me</label>
+      <a href="#">Forgot password?</a>
+    </div>
+  </form>
+</div>
+""", unsafe_allow_html=True)
